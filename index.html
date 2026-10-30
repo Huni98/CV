@@ -579,20 +579,10 @@
       <h2 class="ribbon2">Lépjünk Kapcsolatba!</h2>
 
       <div id="contact-area">
-        <form id="contact-form" method="POST" action="https://formsubmit.co/hunormadaras@yahoo.com">
+        <form id="contact-form" method="POST" action="https://script.google.com/macros/s/AKfycbwwXMgNjZbiQ8_RiDj5etrdG7y6TMLBjLh0aWqKukJ0MlC8KKH83HyIKX-nU5_SXwrPFw/exec">
 
-          <!-- FormSubmit beépített Invisible Honeypot mező (_honey) -->
+          <!-- Invisible Captcha & Honeypot mező (_honey) -->
           <input type="text" name="_honey" class="honeypot_field" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none" />
-
-          <!-- FormSubmit beállítások:
-               FONTOS: a _captcha NEM lehet "false", és standard POST-ot kell használni,
-               különben a FormSubmit biztonsági okból letiltja az _autoresponse válaszlevelet! -->
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" id="form-subject" name="_subject" value="Új megkeresés a CV weboldaladról!" />
-          <input type="hidden" id="form-next-url" name="_next" value="https://huni98.github.io/CV/?sent=1#kapcsolat" />
-
-          <!-- Automatikus válasz a kitöltőnek (name="email" mezőre küldi) -->
-          <input type="hidden" id="form-autoresponse" name="_autoresponse" value="Kedves Érdeklődő! Köszönöm az üzeneted! Megkeresésedet sikeresen megkaptam, és hamarosan felveszem veled a kapcsolatot. Üdvözlettel: Madaras Hunor (https://huni98.github.io/CV/)" />
 
           <div class="contact_form_grid">
             <div class="form_group">
@@ -602,7 +592,6 @@
 
             <div class="form_group">
               <label for="email">E-mail Cím (Kötelező):</label>
-              <!-- KÖTELEZŐ kisbetűs name="email" a válaszlevélhez (_autoresponse) -->
               <input type="email" id="email" name="email" placeholder="pelda@domain.hu" required autocomplete="email" />
             </div>
 

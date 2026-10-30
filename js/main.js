@@ -3,8 +3,7 @@
  * Hunor Madaras - CV & Portfolio Modern Interactive Script
  * Features:
  *  - Theme Toggle (Dark / Light Mode) with LocalStorage
- *  - Contact Form with Invisible Captcha (_honey + timing/interaction)
- *  - Dual-Notification (FormSubmit standard POST with _autoresponse)
+ *  - Contact Form via Google Apps Script (Dual Email + Invisible Captcha)
  *  - IntersectionObserver Animated Skill Progress Bars
  *  - Interactive Portfolio Category Filter
  *  - Modern Keyboard-Accessible Lightbox Modal
@@ -16,6 +15,13 @@
 
 (function () {
   'use strict';
+
+  /* ====================================================
+     FONTOS: Ide illeszd be a Google Apps Script Web App URL-edet!
+     (Pl.: 'https://script.google.com/macros/s/AKfycb.../exec')
+     Lásd: js/google_apps_script.gs
+  ==================================================== */
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwwXMgNjZbiQ8_RiDj5etrdG7y6TMLBjLh0aWqKukJ0MlC8KKH83HyIKX-nU5_SXwrPFw/exec';
 
   /* ----------------------------------------------------
      1. Analytics Event Tracking Helper
@@ -72,7 +78,7 @@
   }
 
   /* ----------------------------------------------------
-     3. Invisible Captcha & Contact Form Handling
+     3. Invisible Captcha & Contact Form Handling (Google Apps Script)
   ---------------------------------------------------- */
   let formInitTime = Date.now();
   let userInteracted = false;
@@ -82,25 +88,6 @@
     if (!form) return;
 
     const statusMsg = document.getElementById('form-status-msg');
-    const nextUrlInput = document.getElementById('form-next-url');
-    const subjectInput = document.getElementById('form-subject');
-    const autoresponseInput = document.getElementById('form-autoresponse');
-
-    // Dynamically set the _next return URL to the current hosted page
-    if (nextUrlInput && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
-      const baseUrl = window.location.origin + window.location.pathname;
-      nextUrlInput.value = `${baseUrl}?sent=1#kapcsolat`;
-    }
-
-    // Check if returning from a successful FormSubmit submission (?sent=1)
-    if (window.location.search.includes('sent=1')) {
-      showStatus('✅ Köszönjük! Az üzenet sikeresen elküldve! Egy automatikus visszaigazoló másolatot küldtünk a megadott e-mail címre is.', 'success');
-      window.trackEvent('contact_form_success');
-      if (window.history && window.history.replaceState) {
-        const cleanUrl = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, document.title, cleanUrl);
-      }
-    }
 
     // Detect human interaction for invisible anti-bot verification
     ['mousemove', 'keydown', 'touchstart'].forEach(evt => {
@@ -109,23 +96,14 @@
       }, { once: true, passive: true });
     });
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
       const submitBtn = form.querySelector('.submit_btn');
       const honeypot = form.querySelector('input[name="_honey"]') || form.querySelector('input[name="_honeypot"]');
 
-      // 0. Check if opened directly via file:// protocol (FormSubmit blocks file://)
-      if (window.location.protocol === 'file:') {
-        e.preventDefault();
-        showStatus(
-          '⚠️ A FormSubmit e-mail küldés biztonsági okokból nem működik közvetlenül fájlrendszerből (<code>file://</code>). Kérjük, nyisd meg az oldalt webszerveren keresztül (pl. <strong>VS Code Live Server</strong> vagy <strong>GitHub Pages</strong>: <a href="https://huni98.github.io/CV/" target="_blank" style="text-decoration:underline;">huni98.github.io/CV</a>)!',
-          'error'
-        );
-        return;
-      }
-
       // 1. Invisible Honeypot check
       if (honeypot && honeypot.value.trim() !== '') {
-        e.preventDefault();
         console.warn('Spam bot detected via honeypot.');
         showStatus('Spam gyanúja miatt az üzenet nem lett elküldve.', 'error');
         return;
@@ -134,7 +112,6 @@
       // 2. Invisible Timestamp & Interaction check (must be human: > 1.2s or had interaction)
       const submitDuration = Date.now() - formInitTime;
       if (submitDuration < 1200 && !userInteracted) {
-        e.preventDefault();
         console.warn('Bot detected via instant submission.');
         showStatus('Kérjük, várjon egy pillanatot az elküldés előtt!', 'error');
         return;
@@ -150,32 +127,74 @@
       const message = messageInput ? messageInput.value.trim() : '';
 
       if (!name || !email || !message) {
-        e.preventDefault();
         showStatus('Kérjük, töltsön ki minden kötelező mezőt!', 'error');
         return;
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        e.preventDefault();
         showStatus('Kérjük, érvényes e-mail címet adjon meg!', 'error');
         return;
       }
 
-      // 4. Customize subject and autoresponse message with sender's name
-      if (subjectInput) {
-        subjectInput.value = `Új kapcsolatfelvétel a CV weboldalról: ${name}`;
-      }
-      if (autoresponseInput) {
-        autoresponseInput.value = `Kedves ${name}!\n\nKöszönöm szépen a megkeresést! Üzenetedet sikeresen megkaptam, és a lehető leghamarabb válaszolni fogok.\n\nBeérkezett üzeneted:\n"${message}"\n\nÜdvözlettel:\nMadaras Hunor\nWebfejlesztő & Informatikus hallgató\nhttps://huni98.github.io/CV/`;
+      // Determine Google Script endpoint (from constant or form action)
+      const formAction = (form.getAttribute('action') || '').trim();
+      const endpoint = GOOGLE_SCRIPT_URL || (formAction.includes('script.google.com') ? formAction : '');
+
+      if (!endpoint) {
+        showStatus(
+          '⚠️ A Google Apps Script Web App URL még nincs beállítva! Kövesd a <code>js/google_apps_script.gs</code> fájlban lévő lépéseket, és másold be a kapott <code>https://script.google.com/macros/s/.../exec</code> linket!',
+          'error'
+        );
+        return;
       }
 
-      // 5. UI Sending State & allow native POST so FormSubmit sends BOTH emails (_autoresponse requires standard POST + reCAPTCHA)
+      // 4. UI Sending State
+      const originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'Üzenet Küldése';
       if (submitBtn) {
+        submitBtn.disabled = true;
         submitBtn.innerHTML = `<span>⏳</span> Küldés folyamatban...`;
       }
       hideStatus();
-      window.trackEvent('contact_form_submit', { sender: name });
+
+      try {
+        // Send via URLSearchParams (CORS simple request, works seamlessly with Google Apps Script doPost)
+        const payload = new URLSearchParams();
+        payload.append('name', name);
+        payload.append('email', email);
+        payload.append('message', message);
+        payload.append('_honey', honeypot ? honeypot.value : '');
+
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: payload
+        });
+
+        const data = await response.json().catch(() => ({ result: 'success' }));
+
+        if (response.ok && data.result !== 'error') {
+          showStatus(
+            '✅ Köszönjük! Az üzenet sikeresen elküldve! Egy automatikus visszaigazoló másolatot küldtünk a megadott e-mail címre (' + email + ') is.',
+            'success'
+          );
+          form.reset();
+          formInitTime = Date.now();
+          window.trackEvent('contact_form_success', { sender: name });
+        } else {
+          throw new Error(data.message || 'Ismeretlen szerverhiba');
+        }
+      } catch (err) {
+        console.error('Google Script küldési hiba:', err);
+        showStatus(
+          `⚠️ Hiba történt az üzenet küldésekor (${err.message || 'Hálózati hiba'}). Kérjük, írj közvetlenül a <a href="mailto:hunormadaras@yahoo.com?subject=Kapcsolatfelvétel CV-ről&body=${encodeURIComponent(message)}" style="text-decoration:underline; font-weight:bold;">hunormadaras@yahoo.com</a> címre!`,
+          'error'
+        );
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+        }
+      }
     });
 
     function showStatus(text, type) {
