@@ -3,8 +3,8 @@
  * Hunor Madaras - CV & Portfolio Modern Interactive Script
  * Features:
  *  - Theme Toggle (Dark / Light Mode) with LocalStorage
- *  - Contact Form AJAX with Invisible Captcha & Honeypot
- *  - Dual-Notification (Autoresponse to sender + mail to recipient)
+ *  - Contact Form with Invisible Captcha (_honey + timing/interaction)
+ *  - Dual-Notification (FormSubmit standard POST with _autoresponse)
  *  - IntersectionObserver Animated Skill Progress Bars
  *  - Interactive Portfolio Category Filter
  *  - Modern Keyboard-Accessible Lightbox Modal
@@ -81,101 +81,101 @@
     const form = document.getElementById('contact-form');
     if (!form) return;
 
-    // Detect user human interaction
+    const statusMsg = document.getElementById('form-status-msg');
+    const nextUrlInput = document.getElementById('form-next-url');
+    const subjectInput = document.getElementById('form-subject');
+    const autoresponseInput = document.getElementById('form-autoresponse');
+
+    // Dynamically set the _next return URL to the current hosted page
+    if (nextUrlInput && (window.location.protocol === 'http:' || window.location.protocol === 'https:')) {
+      const baseUrl = window.location.origin + window.location.pathname;
+      nextUrlInput.value = `${baseUrl}?sent=1#kapcsolat`;
+    }
+
+    // Check if returning from a successful FormSubmit submission (?sent=1)
+    if (window.location.search.includes('sent=1')) {
+      showStatus('✅ Köszönjük! Az üzenet sikeresen elküldve! Egy automatikus visszaigazoló másolatot küldtünk a megadott e-mail címre is.', 'success');
+      window.trackEvent('contact_form_success');
+      if (window.history && window.history.replaceState) {
+        const cleanUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, document.title, cleanUrl);
+      }
+    }
+
+    // Detect human interaction for invisible anti-bot verification
     ['mousemove', 'keydown', 'touchstart'].forEach(evt => {
       window.addEventListener(evt, () => {
         userInteracted = true;
       }, { once: true, passive: true });
     });
 
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-
+    form.addEventListener('submit', function (e) {
       const submitBtn = form.querySelector('.submit_btn');
-      const statusMsg = document.getElementById('form-status-msg');
-      const honeypot = form.querySelector('input[name="_honeypot"]');
+      const honeypot = form.querySelector('input[name="_honey"]') || form.querySelector('input[name="_honeypot"]');
+
+      // 0. Check if opened directly via file:// protocol (FormSubmit blocks file://)
+      if (window.location.protocol === 'file:') {
+        e.preventDefault();
+        showStatus(
+          '⚠️ A FormSubmit e-mail küldés biztonsági okokból nem működik közvetlenül fájlrendszerből (<code>file://</code>). Kérjük, nyisd meg az oldalt webszerveren keresztül (pl. <strong>VS Code Live Server</strong> vagy <strong>GitHub Pages</strong>: <a href="https://huni98.github.io/CV/" target="_blank" style="text-decoration:underline;">huni98.github.io/CV</a>)!',
+          'error'
+        );
+        return;
+      }
 
       // 1. Invisible Honeypot check
       if (honeypot && honeypot.value.trim() !== '') {
+        e.preventDefault();
         console.warn('Spam bot detected via honeypot.');
         showStatus('Spam gyanúja miatt az üzenet nem lett elküldve.', 'error');
         return;
       }
 
-      // 2. Invisible Timestamp & Interaction check (must be human: > 1.2s and had interaction)
+      // 2. Invisible Timestamp & Interaction check (must be human: > 1.2s or had interaction)
       const submitDuration = Date.now() - formInitTime;
       if (submitDuration < 1200 && !userInteracted) {
+        e.preventDefault();
         console.warn('Bot detected via instant submission.');
         showStatus('Kérjük, várjon egy pillanatot az elküldés előtt!', 'error');
         return;
       }
 
       // 3. Form input validation
-      const nameInput = form.querySelector('#Name') || form.querySelector('#nev');
-      const emailInput = form.querySelector('#Email') || form.querySelector('#email');
-      const messageInput = form.querySelector('#Message') || form.querySelector('#uzenet');
+      const nameInput = form.querySelector('#nev') || form.querySelector('input[name="name"]');
+      const emailInput = form.querySelector('#email') || form.querySelector('input[name="email"]');
+      const messageInput = form.querySelector('#uzenet') || form.querySelector('textarea[name="message"]');
 
       const name = nameInput ? nameInput.value.trim() : '';
       const email = emailInput ? emailInput.value.trim() : '';
       const message = messageInput ? messageInput.value.trim() : '';
 
       if (!name || !email || !message) {
+        e.preventDefault();
         showStatus('Kérjük, töltsön ki minden kötelező mezőt!', 'error');
         return;
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
+        e.preventDefault();
         showStatus('Kérjük, érvényes e-mail címet adjon meg!', 'error');
         return;
       }
 
-      // UI Sending State
-      const originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'Küldés';
+      // 4. Customize subject and autoresponse message with sender's name
+      if (subjectInput) {
+        subjectInput.value = `Új kapcsolatfelvétel a CV weboldalról: ${name}`;
+      }
+      if (autoresponseInput) {
+        autoresponseInput.value = `Kedves ${name}!\n\nKöszönöm szépen a megkeresést! Üzenetedet sikeresen megkaptam, és a lehető leghamarabb válaszolni fogok.\n\nBeérkezett üzeneted:\n"${message}"\n\nÜdvözlettel:\nMadaras Hunor\nWebfejlesztő & Informatikus hallgató\nhttps://huni98.github.io/CV/`;
+      }
+
+      // 5. UI Sending State & allow native POST so FormSubmit sends BOTH emails (_autoresponse requires standard POST + reCAPTCHA)
       if (submitBtn) {
-        submitBtn.disabled = true;
         submitBtn.innerHTML = `<span>⏳</span> Küldés folyamatban...`;
       }
       hideStatus();
-
-      try {
-        // We use FormSubmit AJAX endpoint configured with _autoresponse
-        // Recipient receives the inquiry, and sender gets auto-reply confirmation email!
-        const formData = new FormData(form);
-        formData.append('_captcha', 'false'); // Invisible captcha handled by our frontend validation
-        formData.append('_template', 'table');
-        formData.append('_subject', `Új kapcsolatfelvétel a CV weboldalról: ${name}`);
-        formData.append('_autoresponse', `Kedves ${name}!\n\nKöszönöm szépen a megkeresést! Üzenetedet sikeresen megkaptam, és a lehető leghamarabb válaszolni fogok.\n\nÜdvözlettel:\nMadaras Hunor\nWebfejlesztő & Informatikus hallgató\nhttps://huni98.github.io/`);
-
-        const response = await fetch('https://formsubmit.co/ajax/hunormadaras@yahoo.com', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json'
-          },
-          body: formData
-        });
-
-        const data = await response.json().catch(() => ({}));
-
-        if (response.ok || data.success === 'true' || data.success === true) {
-          showStatus('✅ Köszönjük! Az üzenet sikeresen elküldve! Egy automatikus visszaigazoló másolatot küldtünk a megadott e-mail címre is.', 'success');
-          form.reset();
-          window.trackEvent('contact_form_success', { sender: name });
-        } else {
-          // Fallback message
-          showStatus('✅ Köszönjük a megkeresést! Az üzenetet feldolgoztuk.', 'success');
-          form.reset();
-        }
-      } catch (err) {
-        console.warn('Form submission fallback:', err);
-        // Inform user and provide direct mailto link
-        showStatus(`⚠️ Hálózati hiba lépett fel. Kérjük, írj közvetlenül a <a href="mailto:hunormadaras@yahoo.com?subject=Kapcsolatfelvétel CV-ről&body=${encodeURIComponent(message)}" style="text-decoration:underline; font-weight:bold;">hunormadaras@yahoo.com</a> címre!`, 'error');
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalBtnHtml;
-        }
-      }
+      window.trackEvent('contact_form_submit', { sender: name });
     });
 
     function showStatus(text, type) {
@@ -212,7 +212,6 @@
 
       skillBars.forEach(bar => observer.observe(bar));
     } else {
-      // Fallback if IntersectionObserver is not available
       skillBars.forEach(bar => {
         const targetWidth = bar.getAttribute('data-percent') || bar.getAttribute('title') || '0%';
         bar.style.width = targetWidth;
