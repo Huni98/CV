@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="certGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="50%" stop-color="#eab308" />
+      <stop offset="100%" stop-color="#ca8a04" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="600" height="400" rx="16" fill="url(#certGrad)"/>
+  
+  <!-- Outer golden certificate border -->
+  <rect x="25" y="25" width="550" height="350" rx="12" fill="none" stroke="url(#goldGrad)" stroke-width="2" stroke-dasharray="8 4"/>
+  <rect x="35" y="35" width="530" height="330" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(234,179,8,0.3)" stroke-width="1"/>
+  
+  <!-- Certificate content -->
+  <g transform="translate(300, 95)" text-anchor="middle">
+    <!-- Badge Medal -->
+    <circle cx="0" cy="0" r="28" fill="url(#goldGrad)"/>
+    <text x="0" y="9" font-size="26" text-anchor="middle">🏆</text>
+    
+    <text x="0" y="55" fill="#fef08a" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" letter-spacing="3">CERTIFICATE OF ACHIEVEMENT</text>
+    <text x="0" y="85" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800">Frontend Development &amp; Modern JavaScript</text>
+    <text x="0" y="112" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14">Sikeresen teljesítve: Madaras Hunor</text>
+    
+    <line x1="-160" y1="130" x2="160" y2="130" stroke="rgba(234,179,8,0.4)" stroke-width="1"/>
+    
+    <text x="0" y="160" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13">
+      Kompetenciák: React 19, ES6+, Aszinkron JS, DOM manipuláció, REST API-k
+    </text>
+    <text x="0" y="185" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600">
+      Verified Developer Credential • Kiállító: Webfejlesztés Kurzus &amp; Képzés
+    </text>
+  </g>
+</svg>

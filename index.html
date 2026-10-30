@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="hu" data-theme="light">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ===================================================
+       5. Testreszabott SEO Meta Tagek & Közösségi Előnézet
+  =================================================== -->
+  <title>Madaras Hunor | CV &amp; Webfejlesztő Portfólió | UMFST</title>
+  <meta name="description" content="Madaras Hunor webfejlesztő és informatika szakos hallgató szakmai önéletrajza és portfóliója (UMFST G.E. Palade). Készségek: React, JavaScript, HTML5, CSS3, Firebase." />
+  <meta name="keywords" content="Madaras Hunor, Hunor Madaras, Huni98, webfejlesztő, frontend fejlesztő, informatika hallgató, UMFST, Marosvásárhely, CV, önéletrajz, resume, portfolio, React, JavaScript" />
+  <meta name="author" content="Madaras Hunor" />
+  <meta name="reply-to" content="hunormadaras@yahoo.com (Madaras Hunor)" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#2563eb" />
+  <link rel="canonical" href="https://huni98.github.io/" />
+
+  <!-- Open Graph (Facebook, LinkedIn, Discord) -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Madaras Hunor | CV &amp; Webfejlesztő Portfólió" />
+  <meta property="og:description" content="Ismerd meg Madaras Hunor webfejlesztési projektjeit, technológiai készségeit és egyetemi tanulmányait." />
+  <meta property="og:image" content="img/profilkep.jpg" />
+  <meta property="og:url" content="https://huni98.github.io/" />
+  <meta property="og:site_name" content="Madaras Hunor Portfolio" />
+  <meta property="og:locale" content="hu_HU" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Madaras Hunor | CV &amp; Webfejlesztő Portfólió" />
+  <meta name="twitter:description" content="Webfejlesztő és informatika hallgató - UMFST G.E. Palade Marosvásárhely." />
+  <meta name="twitter:image" content="img/profilkep.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="img/profilkep.jpg" />
+  <link rel="shortcut icon" type="image/jpeg" href="img/profilkep.jpg" />
+
+  <!-- Structured Data (JSON-LD) Person Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Madaras Hunor",
+    "alternateName": "Huni98",
+    "jobTitle": "Junior Web Developer & Student",
+    "email": "mailto:hunormadaras@yahoo.com",
+    "url": "https://huni98.github.io/",
+    "image": "https://huni98.github.io/img/profilkep.jpg",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "UMFST George Emil Palade of Targu Mures"
+    },
+    "knowsAbout": ["Web Development", "HTML5", "CSS3", "JavaScript", "React", "Firebase", "Git"],
+    "sameAs": [
+      "https://github.com/Huni98",
+      "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
+    ]
+  }
+  </script>
+
+  <!-- ===================================================
+       2. Frissített & Modernizált CSS Fájlok
+  =================================================== -->
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/text.css" />
+  <link rel="stylesheet" href="css/960_24_col.css" />
+  <link rel="stylesheet" href="css/sytles.css" />
+  <link rel="stylesheet" href="css/jquery.lightbox-0.5.css" />
+
+  <!-- Modern Web Fonts (Biztonságos HTTPS protokollal) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- ===================================================
+       6. Testreszabott Google Analytics 4 Tracker
+  =================================================== -->
+  <!-- Google tag (gtag.js) - Cserélhető a saját GA4 Measurement ID-ra -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HUNI98CV01"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-HUNI98CV01', {
+      'page_title': 'Madaras Hunor CV',
+      'send_page_view': true
+    });
+  </script>
+</head>
+
+<body>
+
+  <!-- Fejléc és Vezérlősáv -->
+  <header id="header">
+    <div class="top_actions">
+      <!-- 3. Egyedi Színek & Téma Váltó (Világos / Sötét mód) -->
+      <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Téma váltása">
+        <span class="icon">🌙</span>
+        <span class="theme-text">Sötét mód</span>
+      </button>
+
+      <!-- Közösségi Linkek -->
+      <ul class="social_panel">
+        <li>
+          <a href="https://github.com/Huni98" target="_blank" rel="noopener noreferrer" title="GitHub Profil" onclick="trackEvent('social_click', { network: 'GitHub' })">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a href="mailto:hunormadaras@yahoo.com" title="E-mail küldése" onclick="trackEvent('social_click', { network: 'Email' })">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container_24 clearfix">
+
+    <!-- BAL OLDALI FEJLÉC: Név és Titulus -->
+    <section class="grid_13 alpha">
+      <div id="name_title">
+        <h1>Madaras Hunor</h1>
+        <div class="role_tagline">
+          <span>Informatika Hallgató | Junior Webfejlesztő</span>
+          <span class="status_badge"><span class="status_dot"></span> Nyitott lehetőségekre</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          UMFST George Emil Palade Marosvásárhely, Frontend &amp; Full-Stack technológiák
+        </p>
+      </div>
+    </section>
+
+    <!-- JOBB OLDALI FEJLÉC: Elérhetőség és CV Letöltés Kártya -->
+    <aside class="grid_11 omega">
+      <div class="work_list">
+        <h1>NYITOTT POZÍCIÓK:</h1>
+        <h3>JUNIOR WEBFEJLESZTŐ, FRONTEND GYAKORNOK</h3>
+
+        <h2>Portfólió &amp; Kódok</h2>
+        <ul>
+          <li>
+            <span>GitHub repók:</span>
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/Huni98">github.com/Huni98</a>
+          </li>
+          <li>
+            <span>Webhely:</span>
+            <a target="_blank" rel="noopener noreferrer" href="https://huni98.github.io/">huni98.github.io</a>
+          </li>
+        </ul>
+<!--
+        <h2>Önéletrajz Letöltése</h2>
+        <ul>
+          <li>
+            <span>Formátum: PDF</span>
+            <a href="#kapcsolat" class="cv-download-btn" onclick="trackEvent('cv_download_click', { lang: 'HU' })">
+              📄 Letöltés / Megtekintés
+            </a>
+          </li>
+        </ul>
+      -->
+      </div>
+    </aside>
+
+    <div class="clear"></div>
+    <div class="horizontal_line"></div>
+
+    <!-- ===================================================
+         BAL HASÁB: Személyes Bemutatkozás, Tanulmányok, Érdeklődés
+    =================================================== -->
+    <div class="grid_12 alpha">
+
+      <!-- Személyes Bemutatkozás -->
+      <section>
+        <h2 class="ribbon2">Személyes Bemutatkozás</h2>
+        <div class="clearfix" style="margin-bottom: 12px;">
+          <!-- 8. Saját profilkép -->
+          <img class="floatLeft" src="img/profilkep.jpg" alt="Madaras Hunor profilképe" />
+          <div class="item">
+            <p>
+              Madaras Hunor vagyok – fejlesztő, problémamegoldó és egyetemi hallgató. Szakmai utam során tapasztalatot szereztem nagyvállalati szoftveres rendszerek támogatásában és optimalizálásában. Hiszek a transzparens, robusztus szoftverarchitektúrákban és a folyamatos, önálló fejlődésben. Célom, hogy megbízható, skálázható és felhasználóbarát digitális megoldásokat építsek.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Kiemelt Szakterületek -->
+      <section>
+        <h2 class="ribbon2">Főbb Kompetenciák</h2>
+        <div class="specialties_chips">
+          <span class="chip">Flutter &amp; Dart</span>
+          <span class="chip">React &amp; Vite</span>
+          <span class="chip">JavaScript (ES6+)</span>
+          <span class="chip">Supabase</span>
+          <span class="chip">Firebase &amp; REST API</span>
+          <span class="chip">HTML5 &amp; CSS3</span>
+          <span class="chip">MySQL &amp; Adatbázisok</span>
+          <span class="chip">Szoftvertesztelés (QA)</span>
+          <span class="chip">Jira &amp; Agile</span>
+          <span class="chip">C/C++ Programozás</span>
+          <span class="chip">Git &amp; GitHub</span>
+        </div>
+      </section>
+
+      <!-- Tanulmányok -->
+      <section>
+        <h2 class="ribbon2">Tanulmányok &amp; Képesítések</h2>
+
+        <article class="item_title">
+          <h1>
+            <a target="_blank" rel="noopener noreferrer" href="https://umfst.ro">UMFST G.E. Palade Marosvásárhely</a>
+            <span>2024 - Jelenleg</span>
+          </h1>
+          <h2>Informatika alapképzés (BSc)</h2>
+          <div class="item">
+            <p>
+              Fókuszterületek: Webalkalmazások fejlesztése, korszerű adatstruktúrák és algoritmusok, szoftverarchitektúrák, relációs adatbázisok és kliens-szerver hálózati kommunikáció.
+            </p>
+          </div>
+        </article>
+
+        <article class="item_title">
+          <h1>
+            Software Development Academy
+            <span>2022 Feb. - 2022 Júl.</span>
+          </h1>
+          <h2>Szoftvertesztelő Képzés</h2>
+          <div class="item">
+            <p>
+              Manuális és automatizált szoftvertesztelés alapjai, követelményelemzés, tesztesetek és User Story-k írása, valamint hibakeresés és szoftverminőség-biztosítás.
+            </p>
+          </div>
+        </article>
+
+        <article class="item_title">
+          <h1>
+            Sapientia EMTE Marosvásárhely
+            <span>Korábbi Tanulmányok</span>
+          </h1>
+          <h2>Automatika és Alkalmazott Informatika</h2>
+          <div class="item">
+            <p>
+              Három tanév elvégzése, mely során mélyebb betekintést nyertem a programozásba és a számítástudományba. A Hallgatói Önkormányzat tagjaként részt vettem az egyetemi rendezvények szervezésében.
+            </p>
+          </div>
+        </article>
+
+        <article class="item_title">
+          <h1>
+            Bolyai Farkas Elméleti Líceum
+            <span>2013 - 2017</span>
+          </h1>
+          <h2>Matematika-Informatika Szak</h2>
+          <div class="item">
+            <p>
+              Erős programozási alapok megszerzése (C/C++), webdesign és adatbázis-kezelés. Záróprojektként egy filmes trailereket bemutató weboldalt fejlesztettem.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Nyelvtudás -->
+      <section>
+        <h2 class="ribbon2">Nyelvtudás</h2>
+        <div class="why_me item_title">
+          <ul>
+            <li><b>Magyar</b> – Anyanyelv</li>
+            <li><b>Román</b> – Felsőfokú / Tárgyalási szint</li>
+            <li><b>Angol</b> – Szakmai középfok (B2, technikai dokumentáció és kommunikáció)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Érdeklődési Körök -->
+      <section>
+        <h2 class="ribbon2">Érdeklődési Körök &amp; Hobbik</h2>
+        <div class="why_me item_title">
+          <ul>
+            <li><b>Motorsportok &amp; Sim Racing:</b> Formula 1 aktív követése, valamint szimulátoros versenyzés (Assetto Corsa) és a köridők, telemetriai adatok elemzése.</li>
+            <li><b>Autózás &amp; Klasszikus Járművek:</b> Szenvedély az autók, különösen a klasszikus modellek iránt.</li>
+            <li><b>Otthoni Technológiák:</b> Okosotthon-rendszerek, strukturált hálózatépítés és hardveres megoldások tervezése és integrálása.</li>
+            <li><b>Kikapcsolódás:</b> Filmek és sorozatok, túrázás, kirándulások, valamint LEGO építés.</li>
+          </ul>
+        </div>
+      </section>
+
+    </div><!-- END BAL HASÁB -->
+
+
+    <!-- ===================================================
+         JOBB HASÁB: Képességek Sávok, Tapasztalatok, Miért érdemes együtt dolgozni
+    =================================================== -->
+    <div class="grid_12 omega">
+
+      <!-- 7. Animált Képességmutatók (IntersectionObserver JS-sel) -->
+      <section>
+        <h2 class="ribbon2">Technológiai Készségek</h2>
+        <div id="technical_skill">
+
+          <div class="skill_row">
+            <div class="skill_header">
+              <span class="skill_label">HTML5 &amp; Szemantikus Web</span>
+              <span class="skill_percent">80%</span>
+            </div>
+            <div class="progress_container">
+              <div class="progress_fill" data-percent="80%"></div>
+            </div>
+          </div>
+
+          <div class="skill_row">
+            <div class="skill_header">
+              <span class="skill_label">JavaScript (ES6+, DOM, Fetch API)</span>
+              <span class="skill_percent">70%</span>
+            </div>
+            <div class="progress_container">
+              <div class="progress_fill" data-percent="70%"></div>
+            </div>
+          </div>
+
+          <div class="skill_row">
+            <div class="skill_header">
+              <span class="skill_label">React.js &amp; Modern Frontend Tooling</span>
+              <span class="skill_percent">80%</span>
+            </div>
+            <div class="progress_container">
+              <div class="progress_fill" data-percent="80%"></div>
+            </div>
+          </div>
+
+          <div class="skill_row">
+            <div class="skill_header">
+              <span class="skill_label">Firebase &amp; Felhő Szolgáltatások</span>
+              <span class="skill_percent">60%</span>
+            </div>
+            <div class="progress_container">
+              <div class="progress_fill" data-percent="60%"></div>
+            </div>
+          </div>
+
+          <div class="skill_row">
+            <div class="skill_header">
+              <span class="skill_label">Git verziókövetés &amp; GitHub</span>
+              <span class="skill_percent">75%</span>
+            </div>
+            <div class="progress_container">
+              <div class="progress_fill" data-percent="75%"></div>
+            </div>
+          </div>
+
+          <div class="skill_row">
+            <div class="skill_header">
+              <span class="skill_label">C++ &amp; Algoritmikus Alapok</span>
+              <span class="skill_percent">80%</span>
+            </div>
+            <div class="progress_container">
+              <div class="progress_fill" data-percent="80%"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Szakmai Tapasztalat (PDF alapján) -->
+      <section>
+        <h2 class="ribbon2">Szakmai Tapasztalat</h2>
+
+        <article class="item_title">
+          <h1>
+            Application Specialist
+            <span>2022 Szept. - 2023 Okt.</span>
+          </h1>
+          <h2>Signant Health | Remote</h2>
+          <div class="item">
+            <p>
+              Klinikai vizsgálati szoftverek (Slate és Touch komponensek) támogatása és optimalizálása olyan kiemelt ügyfelek számára, mint a Gilead, a Pfizer és az Amgen.
+            </p>
+            <ul style="margin-top: 8px; padding-left: 20px; list-style-type: disc; color: var(--text-main);">
+              <li>Rendszerkövetelmények tervezése, elemzése és a szoftverdesign optimalizálása.</li>
+              <li>Komplex szoftverhibák (bugok) diagnosztizálása, javítása és végfelhasználói támogatás biztosítása.</li>
+              <li>Új ügyféligények integrálása a meglévő szoftverfunkciókba, szoros együttműködésben a projektmenedzserekkel és a fejlesztői csapattal.</li>
+              <li>Oktatási referenciaanyagok és technikai dokumentációk készítése a személyzet számára.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="item_title">
+          <h1>
+            Pénztáros &amp; Ügyfélszolgálat
+            <span>2019 Nov. - 2022 Jan.</span>
+          </h1>
+          <h2>Kaufland | Marosvásárhely</h2>
+          <div class="item">
+            <p>
+              Részmunkaidős pozíció az egyetemi tanulmányok mellett, amely kiváló alapot biztosított az ügyfélkommunikáció és a precíz munkavégzés terén.
+            </p>
+            <ul style="margin-top: 8px; padding-left: 20px; list-style-type: disc; color: var(--text-main);">
+              <li>Készpénzes és kártyás tranzakciók pontos kezelése, pénztárgépek zárása és elszámolása.</li>
+              <li>Vásárlói panaszok, visszatérítések és cserék gyors, ügyfélközpontú intézése.</li>
+              <li>Új csapattagok betanítása a vállalati irányelvekre és a kasszarendszer használatára.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <!-- Kiemelt Projektek -->
+      <section>
+        <h2 class="ribbon2">Kiemelt Projektek</h2>
+
+        <article class="item_title">
+          <h1>
+            Comic Book Marcetplace (Mobil &amp; Web)
+            <span>2026 Tavasz - Jelenleg</span>
+          </h1>
+          <h2>Flutter, Dart, Firebase &amp; Webfejlesztés</h2>
+          <div class="item">
+            <p>
+              Kliens-szerver architektúrára épülő mobilalkalmazás képregénygyűjtők számára. Főbb funkciók: felhasználói profilok kezelése, saját gyűjtemények rendszerezése, vonalkód-olvasó integráció és vásárlási kérelmek leadása Firebase backend támogatással. Jelenleg az alkalmazás kiterjesztése zajlik egy dedikált webes platformra.
+            </p>
+          </div>
+        </article>
+
+        <article class="item_title">
+          <h1>
+            Asztali Szoftver (Windows Forms)
+            <span>Korábbi Projekt</span>
+          </h1>
+          <h2>Windows Forms, .NET, Adatbázis integráció</h2>
+          <div class="item">
+            <p>
+              Klasszikus asztali alkalmazás fejlesztése Windows környezetre. A projekt során a fókusz az asztali felhasználói felület (UI) tervezésén, a stabil eseményvezérelt működésen és az adatok strukturált kezelésén, tárolásán volt.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Erősségek & Miért érdemes együtt dolgozni -->
+      <section>
+        <h2 class="ribbon2">Miért Érdemes Velem Dolgozni?</h2>
+        <div class="why_me item_title">
+          <ul>
+            <li><b>Gyors tanulási képesség:</b> Villámgyorsan sajátítok el új könyvtárakat és eszközöket.</li>
+            <li><b>Részletekre való odafigyelés:</b> Pontos, átlátható kód, reszponzív és pixel-pontos dizájn.</li>
+            <li><b>Határidők tisztelete:</b> Megbízható munkavégzés egyetemi és egyéni projektekben egyaránt.</li>
+            <li><b>Kiváló kommunikáció:</b> Nyílt hozzáállás, konstruktív visszajelzések és csapatmunka.</li>
+            <li><b>Pozitív, problémamegoldó attitűd:</b> Nem akadályokat, hanem megoldásokat keresek.</li>
+          </ul>
+        </div>
+      </section>
+
+    </div><!-- END JOBB HASÁB -->
+
+    <div class="clear"></div>
+    <div class="horizontal_line"></div>
+
+    <!-- ===================================================
+         8. KÉPEK & GALÉRIA (Saját Projektek & Tanúsítványok)
+    =================================================== -->
+    <section class="grid_24 alpha omega" id="galeria">
+      <div class="ribbon_portfolio">
+        <span>Projekt Galéria &amp; Tanúsítványok</span>
+
+        <!-- Interaktív Kategória Szűrő Gombok -->
+        <div class="gallery_filter_bar">
+          <button type="button" class="filter_btn active" data-filter="all">Összes (5)</button>
+          <button type="button" class="filter_btn" data-filter="web">Projektek</button>
+          <button type="button" class="filter_btn" data-filter="cert">Tanúsítványok</button>
+        </div>
+      </div>
+
+      <div class="portfolio_grid">
+
+        <!-- Kártya 1: Képregény Piactér -->
+        <article class="portfolio_card" data-category="web">
+          <div class="portfolio_thumb">
+            <!-- Ide majd egy saját képernyőfotó kell az alkalmazásról -->
+            <img src="img/projekt_kep.jpeg" alt="Képregény Piactér" loading="lazy" />
+            <div class="portfolio_overlay">
+              <a href="img/projekt_kep.jpeg" data-lightbox="gallery" data-title="Képregény Piactér - Mobil &amp; Webalkalmazás" class="overlay_zoom_btn" title="Kép megtekintése">🔍</a>
+            </div>
+          </div>
+          <div class="portfolio_body">
+            <h4>Comic Book Marketplace</h4>
+            <p>Flutter és Firebase alapú kliens-szerver alkalmazás, jelenleg webes bővítés alatt.</p>
+            <div class="portfolio_tags">
+              <span class="portfolio_tag">Flutter</span>
+              <span class="portfolio_tag">Firebase</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Kártya 2: Windows Forms App -->
+        <article class="portfolio_card" data-category="web">
+          <div class="portfolio_thumb">
+            <img src="img/Kepregeny-GUI.png" alt="Windows Forms App" loading="lazy" />
+            <div class="portfolio_overlay">
+              <a href="img/Kepregeny-GUI.png" data-lightbox="gallery" data-title="Windows Forms Asztali Szoftver" class="overlay_zoom_btn" title="Kép megtekintése">🔍</a>
+            </div>
+          </div>
+          <div class="portfolio_body">
+            <h4>Képregény Gyűjteménykezelő (WinForms)
+            </h4>
+            <p>Asztali .NET alkalmazás képregények strukturált nyilvántartására, táblázatos adatkezeléssel és szűrési funkciókkal.</p>
+            <div class="portfolio_tags">
+              <span class="portfolio_tag">WinForms</span>
+              <span class="portfolio_tag">.NET</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Kártya 3: Trivia Battle 
+        <article class="portfolio_card" data-category="web">
+          <div class="portfolio_thumb">
+            <img src="img/trivia_battle.svg" alt="Trivia Battle Kvíz előnézet" loading="lazy" />
+            <div class="portfolio_overlay">
+              <a href="img/trivia_battle.svg" data-lightbox="gallery" data-title="Trivia Battle - Kvíz Játék" class="overlay_zoom_btn" title="Kép megtekintése">🔍</a>
+            </div>
+          </div>
+          <div class="portfolio_body">
+            <h4>Trivia Battle</h4>
+            <p>Interaktív online vetélkedő játék animált kártyákkal.</p>
+            <div class="portfolio_tags">
+              <span class="portfolio_tag">React 19</span>
+              <span class="portfolio_tag">Vite</span>
+            </div>
+          </div>
+        </article>
+        -->
+
+        <!-- Kártya 4: Szoftvertesztelő Diploma -->
+        <article class="portfolio_card" data-category="cert">
+          <div class="portfolio_thumb">
+            <img src="img/software_teszter_diploma.jpeg" alt="Szoftvertesztelő Oklevél" loading="lazy" />
+            <div class="portfolio_overlay" style="display: flex; gap: 15px; justify-content: center; align-items: center;">
+              <a href="img/software_teszter_diploma.jpeg" data-lightbox="gallery" data-title="Software Development Academy - Szoftvertesztelő Oklevél" class="overlay_zoom_btn" title="Kép megtekintése">🔍</a>
+            </div>
+          </div>
+          <div class="portfolio_body">
+            <h4>Szoftvertesztelő (QA) Oklevél</h4>
+            <p>Software Development Academy (2022)</p>
+            <div class="portfolio_tags">
+              <span class="portfolio_tag">QA</span>
+              <span class="portfolio_tag">Diploma</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Kártya 5: Bolyai Diploma -->
+        <article class="portfolio_card" data-category="cert">
+          <div class="portfolio_thumb">
+            <img src="img/diploma_bolyai.jpeg" alt="Érettségi Diploma" loading="lazy" />
+            <div class="portfolio_overlay" style="display: flex; gap: 15px; justify-content: center; align-items: center;">
+              <a href="img/diploma_bolyai.jpeg" data-lightbox="gallery" data-title="Érettségi Diploma - 1. oldal" class="overlay_zoom_btn" title="Kép megtekintése">🔍</a>
+              
+            </div>
+          </div>
+          <div class="portfolio_body">
+            <h4>Líceumi Érettségi Diploma</h4>
+            <p>Bolyai Farkas Elméleti Líceum - Matematika-Informatika Szak</p>
+            <div class="portfolio_tags">
+              <span class="portfolio_tag">Érettségi</span>
+              <span class="portfolio_tag">Matek-Infó</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <div class="clear"></div>
+    <div class="horizontal_line"></div>
+
+    <!-- ===================================================
+         4. CONTACT FORM & KAPCSOLATFELVÉTEL
+         (Látható, működőképes, Invisible Captchával, mindkét fél kap levelet!)
+    =================================================== -->
+    <section class="grid_12 alpha" id="kapcsolat">
+      <h2 class="ribbon2">Lépjünk Kapcsolatba!</h2>
+
+      <div id="contact-area">
+        <form id="contact-form" method="POST" action="https://formsubmit.co/hunormadaras@yahoo.com">
+
+          <!-- Invisible Captcha & Honeypot mező -->
+          <input type="text" name="_honeypot" class="honeypot_field" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none" />
+
+          <!-- FormSubmit beállítások -->
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_subject" value="Új megkeresés a CV weboldaladról!" />
+          
+          <!-- Automatikus válasz a kitöltőnek -->
+          <input type="hidden" name="_autoresponse" value="Köszönöm az üzeneted! Hamarosan felveszem veled a kapcsolatot. - Madaras Hunor" />
+
+          <div class="contact_form_grid">
+            <div class="form_group">
+              <label for="nev">Név (Kötelező):</label>
+              <!-- A name attrubútum lehet "Name" -->
+              <input type="text" id="nev" name="Name" placeholder="Pl. Kovács Péter" required autocomplete="name" />
+            </div>
+
+            <div class="form_group">
+              <label for="email">E-mail Cím (Kötelező):</label>
+              <!-- KÖTELEZŐ kisbetűs name="email" a válaszlevélhez -->
+              <input type="email" id="email" name="email" placeholder="pelda@domain.hu" required autocomplete="email" />
+            </div>
+
+            <div class="form_group">
+              <label for="uzenet">Üzenet (Kötelező):</label>
+              <textarea id="uzenet" name="Message" rows="5" placeholder="Írd le, miben segíthetek vagy milyen projektben működhetünk együtt..." required></textarea>
+            </div>
+
+            <div class="captcha_notice">
+              <span class="shield_icon">🛡️</span>
+              <div class="form_dual_notify_hint">
+                <strong>Spam védelem:</strong> Láthatatlan Captcha és Honeypot aktív.<br />
+                <strong>Kettős értesítés:</strong> Az üzenetet megkapom én is, és Ön is kap egy automatikus visszaigazoló másolatot.
+              </div>
+            </div>
+
+            <button type="submit" class="submit_btn">
+              <span>✉️</span> Üzenet Küldése
+            </button>
+
+            <div id="form-status-msg" class="form_status_msg" role="alert"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- JOBB OLDALI KAPCSOLAT INFORMÁCIÓK ÉS PROFILOK -->
+    <aside class="grid_12 omega">
+      <h2 class="ribbon2">Közvetlen Elérhetőség</h2>
+
+      <div class="item_title">
+        <p style="margin-bottom: 8px;">
+          Szívesen veszem megkeresésedet szoftverfejlesztési lehetőségekkel, gyakornoki pozíciókkal vagy közös egyetemi projektekkel kapcsolatban!
+        </p>
+
+        <!-- 7. Gyors vágólapra másolás gomb -->
+        <div class="quick_copy_box">
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">ELSŐDLEGES E-MAIL:</div>
+            <div style="font-size: 1rem; font-weight: 700; color: var(--text-main);">hunormadaras@yahoo.com</div>
+          </div>
+          <button type="button" class="copy_btn" data-copy="hunormadaras@yahoo.com" title="Másolás vágólapra">
+            📋 Másolás
+          </button>
+        </div>
+
+        <div class="quick_copy_box" style="margin-top: 10px;">
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">LOKÁCIÓ:</div>
+            <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-main);">Marosvásárhely, Románia (Târgu Mureș)</div>
+          </div>
+          <a href="https://maps.google.com/?q=Targu+Mures" target="_blank" rel="noopener noreferrer" class="copy_btn" style="text-decoration:none;">
+            📍 Térkép
+          </a>
+        </div>
+      </div>
+
+      <h2 class="ribbon2" style="margin-top: 22px;">Szakmai &amp; Akadémiai Profilok</h2>
+      <div class="profile_links_wrap">
+        <a class="profile_pill" target="_blank" rel="noopener noreferrer" href="https://github.com/Huni98">GitHub (@Huni98)</a>
+        <a class="profile_pill" target="_blank" rel="noopener noreferrer" href="https://huni98.github.io/">Portfolio GitHub Pages</a>
+        <a class="profile_pill" target="_blank" rel="noopener noreferrer" href="https://umfst.ro">UMFST G.E. Palade</a>
+      </div>
+    </aside>
+
+    <div class="clear"></div>
+    <div class="horizontal_line"></div>
+
+    <!-- Lábléc -->
+    <footer class="grid_24 alpha omega" style="text-align: center; padding: 20px 0; color: var(--text-muted); font-size: 0.9rem;">
+      <p>&copy; 2026 Madaras Hunor. Minden jog fenntartva. • Készült a Webfejlesztés kurzushoz.</p>
+    </footer>
+
+  </main><!-- END .CONTAINER_24 -->
+
+  <!-- ===================================================
+       7. Modern Lightbox Modal komponens (DOM alapú)
+  =================================================== -->
+  <div id="modern-lightbox-modal" class="modern_lightbox_modal" role="dialog" aria-modal="true" aria-label="Képnézegető">
+    <div class="lightbox_dialog">
+      <button type="button" class="lightbox_close_btn" aria-label="Bezárás">✕</button>
+      <div class="lightbox_img_container">
+        <img src="img/profilkep.jpg" alt="Megtekintett projektkép" />
+      </div>
+      <div class="lightbox_meta">
+        <h3>Projekt Cím</h3>
+        <p>Projekt leírás és részletek...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Vissza az oldal tetejére lebegő gomb -->
+  <button type="button" class="nav_up" id="nav_up" aria-label="Ugrás az oldal tetejére" title="Ugrás a tetejére">
+    ↑
+  </button>
+
+  <!-- ===================================================
+       7. Korszerű, Interaktív JavaScript Betöltése
+  =================================================== -->
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>
